@@ -15,7 +15,7 @@ const ClassState = ({ children }) => {
   const getFaculties = async () => {
     try {
       const { data } = await axios.get(
-        "https://13.235.115.31:3000/admin/dashboard/classes/getFaculties"
+        "http://13.235.115.31:3000/admin/dashboard/classes/getFaculties"
       );
       dispatch({ type: GET_FACULTY, payload: data });
     } catch (err) {
@@ -36,7 +36,7 @@ const ClassState = ({ children }) => {
      };
      try {
        const { data } = await axios.post(
-         "https://13.235.115.31:3000/admin/dashboard/classes/filterClasses",
+         "http://13.235.115.31:3000/admin/dashboard/classes/filterClasses",
          formData,
          config
        );
