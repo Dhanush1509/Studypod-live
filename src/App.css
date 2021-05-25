@@ -105,6 +105,7 @@
   width: 120px;
   padding-top: 13px;
   cursor: pointer;
+      padding-bottom:6px
 }
 
 .tab__items:active,
@@ -172,11 +173,7 @@
     border-top: 5px solid #ef5b25;
     padding-top: 1px;
   }
-  .tab__items:hover {
-    background-color: white;
-    border-top: 5px solid #ef5b25;
-    padding-top: 1px;
-  }
+  
 
   .tab__or {
     padding-right: 6px;

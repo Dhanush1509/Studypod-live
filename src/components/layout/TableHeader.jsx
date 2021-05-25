@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
 import ClassContext from "../context/information/classContext";
-import Table from "./Table"
+import Table from "./Table";
 export default function CenteredTabs() {
-  const { setTableIndex, tableIndex,classesInState} = useContext(ClassContext);
+  const { setTableIndex, tableIndex, classesInState } =
+    useContext(ClassContext);
   return classesInState && classesInState.classes ? (
     <>
       {" "}
@@ -10,12 +11,9 @@ export default function CenteredTabs() {
         <div className="tab__left">
           <div
             style={{
-              paddingTop: " 13px",
               cursor: " pointer",
               height: " 100%",
               width: "160px",
-
-              paddingBottom: " 6px",
             }}
             className={tableIndex === 1 ? "activeTabs" : "tab__items"}
             onClick={() => {
@@ -27,11 +25,9 @@ export default function CenteredTabs() {
           <div
             style={{
               width: " 160px",
-              paddingTop: " 13px",
+
               cursor: " pointer",
               height: " 100%",
-
-              paddingBottom: " 6px",
             }}
             className={tableIndex === 2 ? "activeTabs" : "tab__items"}
             onClick={() => {
@@ -43,10 +39,9 @@ export default function CenteredTabs() {
           <div
             style={{
               width: " 160px",
-              paddingTop: " 13px",
+
               cursor: " pointer",
               height: " 100%",
-              paddingBottom: " 6px",
             }}
             className={tableIndex === 3 ? "activeTabs" : "tab__items"}
             onClick={() => {
@@ -57,9 +52,7 @@ export default function CenteredTabs() {
           </div>
         </div>
       </div>
-      <>
-       
-      </>
+      <></>
       {tableIndex > 0 ? <Table /> : <></>}
     </>
   ) : (

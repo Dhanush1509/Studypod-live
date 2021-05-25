@@ -1,21 +1,16 @@
-import React,{useContext} from "react";
-import ClassContext from "../context/information/classContext" 
-
+import React, { useContext } from "react";
+import ClassContext from "../context/information/classContext";
 
 export default function CenteredTabs() {
-
-const {setTabIndex,tabIndex}=useContext(ClassContext)
+  const { setTabIndex, tabIndex } = useContext(ClassContext);
   return (
     <div className="tab">
       <div className="tab__left">
         <div
           style={{
-            paddingTop: " 13px",
             cursor: " pointer",
             height: " 100%",
             width: "120px",
-
-            paddingBottom: " 6px",
           }}
           className={tabIndex === 1 ? "activeTabs" : "tab__items"}
           onClick={() => {
@@ -27,11 +22,9 @@ const {setTabIndex,tabIndex}=useContext(ClassContext)
         <div
           style={{
             width: " 120px",
-            paddingTop: " 13px",
+
             cursor: " pointer",
             height: " 100%",
-
-            paddingBottom: " 6px",
           }}
           className={tabIndex === 2 ? "activeTabs" : "tab__items"}
           onClick={() => {
@@ -43,11 +36,9 @@ const {setTabIndex,tabIndex}=useContext(ClassContext)
         <div
           style={{
             width: " 120px",
-            paddingTop: " 13px",
+
             cursor: " pointer",
             height: " 100%",
-
-            paddingBottom: " 6px",
           }}
           className={tabIndex === 3 ? "activeTabs" : "tab__items"}
           onClick={() => {
@@ -64,5 +55,3 @@ const {setTabIndex,tabIndex}=useContext(ClassContext)
     </div>
   );
 }
-
-
