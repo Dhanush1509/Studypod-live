@@ -3,7 +3,7 @@ import ClassContext from "../context/information/classContext";
 import { Form } from "react-bootstrap";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-
+import moment from "moment";
 const useStyles = makeStyles((theme) => ({
   container: {
     display: "flex",
@@ -17,15 +17,25 @@ const useStyles = makeStyles((theme) => ({
 }));
 const Search = () => {
   const classes = useStyles();
-  const { getFaculties, faculties, getClasses,tabIndex } = useContext(ClassContext);
+  const { getFaculties, faculties, getClasses,tabIndex,setFormData} = useContext(ClassContext);
   useEffect(() => {
     getFaculties();
   }, []);
 
+
+  
+  const now = moment(Date.now()).format(); 
+  const [time, setTime] = useState(now);
+ 
+console.log(time)
+const todayDate =time.substring(0,16)
+
+console.log(todayDate)
+
   const [faculty, setFaculty] = useState("Select..");
   const [grade, setGrade] = useState("Select..");
-  const [startDate, setStartDate] = useState("2017-05-24T10:30");//"2021-03-07T12:00:00.000Z"
-  const [endDate, setEndDate] = useState(null);
+  const [startDate, setStartDate] = useState(todayDate);//"2021-03-07T12:00:00.000Z"
+  const [endDate, setEndDate] = useState(todayDate);
   const handleChange = (e) => {
     setFaculty(e.target.value);
   };
@@ -44,7 +54,7 @@ const Search = () => {
     var d1 = new Date(startDate);
 var d2 = new Date(d);
 if(d2<=d1){
- setEndDate(startDate);
+ setEndDate(todayDate);
 }else{
  setEndDate(d);
 }
@@ -52,10 +62,17 @@ if(d2<=d1){
   }
   const handleClick = () => {
     getClasses({
-      instructorName: faculty !== "Select..." ? faculty : "",
-      beginDateTime:startDate?startDate:"" ,
-      endDateTime: endDate?endDate:"",
-      standard: grade !== "Select..." ? Number(grade) : "",
+      instructorName: faculty !== "Select.." ? faculty : "",
+      beginDateTime:startDate===todayDate?"":startDate ,
+      endDateTime: endDate===todayDate?"":endDate,
+      standard: grade !== "Select.." ? Number(grade) : "",
+      limit:1000
+    });
+    setFormData({
+      instructorName: faculty !== "Select.." ? faculty : "",
+      beginDateTime: startDate ? startDate : "",
+      endDateTime: endDate ? endDate : "",
+      standard: grade !== "Select.." ? Number(grade) : "",
     });
   };
 
@@ -96,7 +113,7 @@ if(d2<=d1){
                   <TextField
                     id="datetime-local"
                     type="datetime-local"
-                    defaultValue="2017-05-24T10:30"
+               
                     className={classes.textField}
                     InputLabelProps={{
                       shrink: true,
@@ -117,7 +134,7 @@ if(d2<=d1){
                   <TextField
                     id="datetime-local"
                     type="datetime-local"
-                    defaultValue="2017-05-24T10:30"
+               
                     className={classes.textField}
                     InputLabelProps={{
                       shrink: true,

@@ -6,8 +6,8 @@ import axios from "axios";
 const ClassState = ({ children }) => {
   const initialState = {
     faculties: null,
-    tableIndex: 0,
-    tabIndex: 0,
+    tableIndex: 1,
+    tabIndex: 1,
     error: null,classes:null,formData:null,edit:true
   };
   const [state, dispatch] = useReducer(ClassReducer, initialState);
@@ -29,6 +29,7 @@ const ClassState = ({ children }) => {
     }
   };
   const getClasses=async(formData)=>{
+    console.log(formData)
      const config = {
        headers: {
          "Content-Type": "application/json",
@@ -41,7 +42,7 @@ const ClassState = ({ children }) => {
          config
        );
        dispatch({ type: GET_CLASSES, payload: data });
-       dispatch({type:SET_FORM_DATA,payload: formData});
+    
      } catch (err) {
        dispatch({
          type: GET_CLASSES_ERROR,
@@ -61,6 +62,9 @@ dispatch({type:SET_TAB_INDEX, payload: i})
    const removeEdit=() => {
      dispatch({ type: REMOVE_EDIT})
    }
+   const setFormData = (formData) => {
+   dispatch({ type: SET_FORM_DATA, payload: formData });
+   }
   return (
     <ClassContext.Provider
       value={{
@@ -73,7 +77,8 @@ dispatch({type:SET_TAB_INDEX, payload: i})
         classesInState: state.classes,
         setTabIndex,
         setTableIndex,removeEdit,edit:state.edit,
-        formData:state.formData
+        formData:state.formData,
+        setFormData
       }}
     >
       {children}

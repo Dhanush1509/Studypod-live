@@ -13,7 +13,7 @@ export default function CenteredTabs() {
             style={{
               cursor: " pointer",
               height: " 100%",
-              width: "160px",
+              width: "180px",
             }}
             className={tableIndex === 1 ? "activeTabs" : "tab__items"}
             onClick={() => {
@@ -24,7 +24,7 @@ export default function CenteredTabs() {
           </div>
           <div
             style={{
-              width: " 160px",
+              width: " 180px",
 
               cursor: " pointer",
               height: " 100%",
@@ -38,7 +38,7 @@ export default function CenteredTabs() {
           </div>
           <div
             style={{
-              width: " 160px",
+              width: " 180px",
 
               cursor: " pointer",
               height: " 100%",

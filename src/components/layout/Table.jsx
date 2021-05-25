@@ -101,15 +101,12 @@ function EnhancedTableHead(props) {
       <TableRow>
         <TableCell
           padding="checkbox"
-          style={{ width: "75px" }}
-          onClick={removeEdit}
+          style={{ width: "105px" }}
+        
         >
-          <Checkbox
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            inputProps={{ "aria-label": "select all desserts" }}
-          />
+        
+          Delete
+
         </TableCell>
         {edit && (
           <TableCell padding="checkbox" style={{ width: "75px" }}>
@@ -177,26 +174,7 @@ const EnhancedTableToolbar = (props) => {
   const { numSelected } = props;
 
   return (
-    <Toolbar
-      className={clsx(classes.root, {
-        [classes.highlight]: numSelected > 0,
-      })}
-    >
-     
-      {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton aria-label="delete">
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
-      ) : (
-        <Tooltip title="Filter list">
-          <IconButton aria-label="filter list">
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
-      )}
-    </Toolbar>
+ <></>
   );
 };
 
@@ -206,16 +184,17 @@ EnhancedTableToolbar.propTypes = {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: "90%",
-    marginLeft:"50px",
+    width: "auto",
+    marginLeft:"60px",
     marginTop:"6px"
   },
   paper: {
-    width: "100%",
+    width: "auto",
     marginBottom: theme.spacing(2),
+    marginTop:"20px"
   },
   table: {
-    minWidth: "100%",
+    minWidth: "950",
   },
   visuallyHidden: {
     border: 0,
@@ -249,19 +228,19 @@ export default function EnhancedTable() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.name);
+      const newSelecteds = rows.map((n) => n._id);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
+  const handleClick = (event, _id) => {
+    const selectedIndex = selected.indexOf(_id);
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
+      newSelected = newSelected.concat(selected, _id);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -289,7 +268,7 @@ export default function EnhancedTable() {
     setDense(event.target.checked);
   };
 
-  const isSelected = (name) => selected.indexOf(name) !== -1;
+  const isSelected = (_id) => selected.indexOf(_id) !== -1;
 
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
@@ -305,13 +284,13 @@ export default function EnhancedTable() {
     </div>
   ) : (
     <div className={classes.root}>
-      <header style={{ paddingLeft: "10px",marginTop:"10px" }}>
+      <header style={{ marginTop: "10px" }} className="tableheader">
         <h6>
           Showing results from{" "}
-          {moment(formData.beginDateTime).format("MMMM Do YYYY")} to{" "}
-          {moment(formData.endDateTime).format("MMMM Do YYYY")}
+          {moment(rows[0].startTime).format("MMMM Do YYYY")} to{" "}
+          {moment(rows[(rows.length)-1].endTime).format("MMMM Do YYYY")}
         </h6>
-        <div style={{ textAlign: "right" }}>
+        <div className="tableheaderbuttons">
           {" "}
           <button className="appbar__button" style={{ marginRight: "10px" }}>
             DELETE
@@ -343,17 +322,17 @@ export default function EnhancedTable() {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.name);
+                  const isItemSelected = isSelected(row._id);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.name)}
+                      onClick={(event) => handleClick(event, row._id)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.name}
+                      key={row._id}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox" onClick={removeEdit}>
@@ -364,7 +343,7 @@ export default function EnhancedTable() {
                       </TableCell>
                       {edit && (
                         <TableCell padding="checkbox">
-                          <EditIcon />
+                          <EditIcon size={16} />
                         </TableCell>
                       )}
                       <TableCell
@@ -403,7 +382,7 @@ export default function EnhancedTable() {
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[10, 25,50]}
+          rowsPerPageOptions={[10, 25, 50]}
           component="div"
           count={rows.length}
           rowsPerPage={rowsPerPage}
