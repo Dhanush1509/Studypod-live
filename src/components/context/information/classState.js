@@ -1,14 +1,14 @@
 import React, { useReducer } from "react";
 import ClassContext from "./classContext";
 import ClassReducer from "./classReducer";
-import { GET_FACULTY, GET_FACULTY_ERROR,GET_CLASSES,GET_CLASSES_ERROR,SET_TAB_INDEX,SET_TABLE_INDEX,SET_FORM_DATA,REMOVE_EDIT } from "../types";
+import { GET_FACULTY, GET_FACULTY_ERROR,GET_CLASSES,GET_CLASSES_ERROR,SET_TAB_INDEX,SET_TABLE_INDEX,REMOVE_EDIT } from "../types";
 import axios from "axios";
 const ClassState = ({ children }) => {
   const initialState = {
     faculties: null,
     tableIndex: 1,
     tabIndex: 1,
-    error: null,classes:null,formData:null,edit:true
+    error: null,classes:null,edit:"true",checkboxes:[]
   };
   const [state, dispatch] = useReducer(ClassReducer, initialState);
 
@@ -59,12 +59,10 @@ dispatch({type:SET_TAB_INDEX, payload: i})
    const setTableIndex = (i) => {
      dispatch({ type: SET_TABLE_INDEX, payload: i });
    };
-   const removeEdit=() => {
-     dispatch({ type: REMOVE_EDIT})
+   const removeEdit=(id) => {
+     dispatch({ type: REMOVE_EDIT,payload: id})
    }
-   const setFormData = (formData) => {
-   dispatch({ type: SET_FORM_DATA, payload: formData });
-   }
+
   return (
     <ClassContext.Provider
       value={{
@@ -76,9 +74,7 @@ dispatch({type:SET_TAB_INDEX, payload: i})
         error: state.error,
         classesInState: state.classes,
         setTabIndex,
-        setTableIndex,removeEdit,edit:state.edit,
-        formData:state.formData,
-        setFormData
+        setTableIndex,removeEdit,edit:state.edit,checkboxes:state.checkboxes
       }}
     >
       {children}

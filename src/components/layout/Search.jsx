@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 const Search = () => {
   const classes = useStyles();
-  const { getFaculties, faculties, getClasses,tabIndex,setFormData} = useContext(ClassContext);
+  const { getFaculties, faculties, getClasses,tabIndex} = useContext(ClassContext);
   useEffect(() => {
     getFaculties();
   }, []);
@@ -67,12 +67,6 @@ if(d2<=d1){
       endDateTime: endDate===todayDate?"":endDate,
       standard: grade !== "Select.." ? Number(grade) : "",
       limit:1000
-    });
-    setFormData({
-      instructorName: faculty !== "Select.." ? faculty : "",
-      beginDateTime: startDate ? startDate : "",
-      endDateTime: endDate ? endDate : "",
-      standard: grade !== "Select.." ? Number(grade) : "",
     });
   };
 

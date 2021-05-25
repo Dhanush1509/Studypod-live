@@ -210,7 +210,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function EnhancedTable() {
-    const {classesInState,tableIndex,edit,removeEdit,formData}=useContext(ClassContext)
+    const {classesInState,tableIndex,removeEdit,checkboxes}=useContext(ClassContext)
     const classes = useStyles();
     const [order, setOrder] = React.useState("asc");
     const [orderBy, setOrderBy] = React.useState("calories");
@@ -335,13 +335,13 @@ export default function EnhancedTable() {
                       key={row._id}
                       selected={isItemSelected}
                     >
-                      <TableCell padding="checkbox" onClick={removeEdit}>
+                      <TableCell padding="checkbox" onClick={()=>removeEdit(row._id)}>
                         <Checkbox
                           checked={isItemSelected}
                           inputProps={{ "aria-labelledby": labelId }}
                         />
                       </TableCell>
-                      {edit && (
+                      {checkboxes.length===0 && (
                         <TableCell padding="checkbox">
                           <EditIcon size={16} />
                         </TableCell>

@@ -1,4 +1,4 @@
-import {GET_FACULTY,GET_FACULTY_ERROR,GET_CLASSES,GET_CLASSES_ERROR,SET_TAB_INDEX,SET_TABLE_INDEX,SET_FORM_DATA,REMOVE_EDIT} from "../types"
+import {GET_FACULTY,GET_FACULTY_ERROR,GET_CLASSES,GET_CLASSES_ERROR,SET_TAB_INDEX,SET_TABLE_INDEX,REMOVE_EDIT} from "../types"
 const classReducer=(state,action) =>{
     switch (action.type) {
       case GET_FACULTY:
@@ -12,10 +12,25 @@ const classReducer=(state,action) =>{
       case GET_FACULTY_ERROR:
       case GET_CLASSES_ERROR:
         return { ...state, error: action.payload };
-        case SET_FORM_DATA:
-            return {...state, formData: action.payload}
+     
             case REMOVE_EDIT:
-                return { ...state,edit:!state.edit}
+                      console.log(action.payload)
+    
+      if(state.checkboxes.length===0){
+         state.checkboxes.push(action.payload);
+        return { ...state, edit: "false" };
+      }
+      else{
+     const find = state.checkboxes.indexOf(action.payload);
+      console.log(find)
+      if (find > -1) {
+        state.checkboxes = state.checkboxes.filter((s) => s !== action.payload);
+        return { ...state, edit: "true" };
+      } else {
+        state.checkboxes.push(action.payload);
+        return { ...state, edit: "false" };
+      }
+      }
       default:
         return state;
     }
