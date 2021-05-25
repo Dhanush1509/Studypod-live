@@ -94,7 +94,7 @@ function EnhancedTableHead(props) {
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
- const { classesInState, tableIndex, edit, removeEdit } =
+ const { classesInState, tableIndex, edit, removeEdit,checkboxes } =
    useContext(ClassContext);
   return (
     <TableHead>
@@ -108,7 +108,7 @@ function EnhancedTableHead(props) {
           Delete
 
         </TableCell>
-        {edit && (
+        {checkboxes.length===0 && (
           <TableCell padding="checkbox" style={{ width: "75px" }}>
             Edit
           </TableCell>
