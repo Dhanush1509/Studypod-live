@@ -218,7 +218,9 @@ export default function EnhancedTable() {
     const [page, setPage] = React.useState(0);
     const [dense, setDense] = React.useState(false);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
-    
+    React.useEffect(()=>{
+setSelected([])
+    },[tableIndex])
     const rows =tableIndex===1?classesInState.classes.current:tableIndex===2?classesInState.classes.past:classesInState.classes.upcoming
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
