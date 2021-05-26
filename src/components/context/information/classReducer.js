@@ -4,7 +4,7 @@ const classReducer=(state,action) =>{
       case GET_FACULTY:
         return { ...state, faculties: action.payload };
       case GET_CLASSES:
-        return { ...state, classes: action.payload };
+        return { ...state, classes: action.payload,checkboxes:[] };
       case SET_TABLE_INDEX:
         return { ...state, tableIndex: action.payload };
       case SET_TAB_INDEX:
